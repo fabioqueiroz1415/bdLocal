@@ -4,9 +4,12 @@ async function adicionarPessoa() {
 
     // Carregar o conteúdo do arquivo JSON
     const response = await fetch('data.json');
-    const data = await response.json();
+    let data = await response.json();
 
     // Adicionar a nova pessoa ao JSON
+    if (!data.pessoas) {
+        data.pessoas = []; // Se não houver nenhuma pessoa ainda, inicializa o array
+    }
     data.pessoas.push({ nome, idade });
 
     // Enviar as alterações de volta para o arquivo JSON
@@ -30,9 +33,11 @@ async function verPessoas() {
     let tabelaHTML = '<h2>Pessoas</h2>';
     tabelaHTML += '<table border="1">';
     tabelaHTML += '<tr><th>Nome</th><th>Idade</th></tr>';
-    data.pessoas.forEach(pessoa => {
-        tabelaHTML += `<tr><td>${pessoa.nome}</td><td>${pessoa.idade}</td></tr>`;
-    });
+    if (data.pessoas) {
+        data.pessoas.forEach(pessoa => {
+            tabelaHTML += `<tr><td>${pessoa.nome}</td><td>${pessoa.idade}</td></tr>`;
+        });
+    }
     tabelaHTML += '</table>';
 
     // Exibir a tabela na página
