@@ -22,6 +22,8 @@ async function adicionarPessoa() {
     });
 
     alert('Pessoa adicionada com sucesso!');
+    alert(nome);
+    alert(idade);
 }
 
 async function verPessoas() {
